@@ -11,6 +11,7 @@ License:	Apache v2.0
 Group:		Networking/Daemons/HTTP
 Source0:	https://github.com/mholt/caddy/archive/v%{version}/%{name}-%{version}.tar.gz
 # Source0-md5:	2d08bf70a7ad4255513bf1e0df174e98
+Patch0:		build-date.patch
 URL:		https://caddyserver.com/
 BuildRequires:	golang >= 1.6
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -33,18 +34,20 @@ cryptographic assets for you.
 
 %prep
 %setup -q
+%patch0 -p1
 
 GOPATH=$(pwd)/vendor
 install -d $GOPATH/src/github.com/mholt
 ln -s ../../../.. $GOPATH/src/github.com/mholt/caddy
 
+date=$(date -u +"%%a %%b %%d %%H:%%M:%%S %%Z %%Y")
+%{__sed} -i -e "/buildDate/ s/(unknown)/$date/" main.go
+
 %build
 export GOPATH=$(pwd)/vendor
 
 # command extraced by running "build.bash" from git tree
-date=$(date -u +"%%a %%b %%d %%H:%%M:%%S %%Z %%Y")
 LDFLAGS="\
--X main.buildDate=$date \
 -X main.gitTag= \
 -X main.gitNearestTag=v%{version} \
 -X main.gitCommit= \
