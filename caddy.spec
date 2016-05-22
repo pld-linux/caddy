@@ -48,7 +48,7 @@ export GOPATH=$(pwd)/vendor
 
 # command extraced by running "build.bash" from git tree
 LDFLAGS="\
--X main.gitTag= \
+-X main.gitTag=v%{version} \
 -X main.gitNearestTag=v%{version} \
 -X main.gitCommit= \
 -X main.gitShortStat= \
