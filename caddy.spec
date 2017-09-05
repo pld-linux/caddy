@@ -4,7 +4,6 @@
 #
 # Conditional build:
 %bcond_with	tests		# build with tests
-%bcond_without	tests		# build without tests
 
 Summary:	Fast, cross-platform HTTP/2 web server with automatic HTTPS
 Name:		caddy
