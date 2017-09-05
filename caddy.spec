@@ -40,8 +40,8 @@ set -- $GOPATH/*
 install -d $GOPATH/src
 mv "$@" vendor/src
 
-install -d $GOPATH/src/github.com/mholt
-ln -s ../../../.. $GOPATH/src/github.com/mholt/caddy
+install -d $GOPATH/src/$(dirname %{import_path})
+ln -s ../../../.. $GOPATH/src/%{import_path}
 
 %build
 export GOPATH=$(pwd)/vendor
@@ -50,7 +50,7 @@ export GOPATH=$(pwd)/vendor
 # however only gitTag is relevant for release build
 LDFLAGS="-X main.gitTag=v%{version}"
 
-%gobuild -o caddy.bin
+%gobuild -o %{name}.bin %{import_path}
 
 %install
 rm -rf $RPM_BUILD_ROOT
