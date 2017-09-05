@@ -1,5 +1,4 @@
 # TODO
-# - make it build without "go get"
 # - initscripts https://github.com/mholt/caddy/tree/master/dist/init
 #
 # Conditional build:
@@ -37,6 +36,10 @@ cryptographic assets for you.
 %setup -q
 
 GOPATH=$(pwd)/vendor
+set -- $GOPATH/*
+install -d $GOPATH/src
+mv "$@" vendor/src
+
 install -d $GOPATH/src/github.com/mholt
 ln -s ../../../.. $GOPATH/src/github.com/mholt/caddy
 
@@ -47,7 +50,6 @@ export GOPATH=$(pwd)/vendor
 # however only gitTag is relevant for release build
 LDFLAGS="-X main.gitTag=v%{version}"
 
-test -d vendor/src/golang.org || go get ./... || :
 %gobuild -o caddy.bin
 
 %install
