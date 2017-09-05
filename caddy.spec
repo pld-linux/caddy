@@ -1,3 +1,6 @@
+# TODO
+# - make it build without "go get"
+# - initscripts https://github.com/mholt/caddy/tree/master/dist/init
 #
 # Conditional build:
 %bcond_with	tests		# build with tests
@@ -5,14 +8,14 @@
 
 Summary:	Fast, cross-platform HTTP/2 web server with automatic HTTPS
 Name:		caddy
-Version:	0.8.3
+Version:	0.10.7
 Release:	0.1
 License:	Apache v2.0
 Group:		Networking/Daemons/HTTP
 Source0:	https://github.com/mholt/caddy/archive/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	2d08bf70a7ad4255513bf1e0df174e98
+# Source0-md5:	cbf02596335f0977c7d04f90afecc696
 URL:		https://caddyserver.com/
-BuildRequires:	golang >= 1.6
+BuildRequires:	golang >= 1.8
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_enable_debug_packages 0
